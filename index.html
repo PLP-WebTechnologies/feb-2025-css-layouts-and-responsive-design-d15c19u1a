@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Layout with Grid and Flexbox</title>
+    <style>
+        /* Base Reset */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        /* Overall Grid Layout */
+        .grid-container {
+            display: grid;
+            /* Define the main layout with Grid */
+            grid-template-areas:
+                "header header"
+                "sidebar main"
+                "footer footer";
+            grid-template-columns: 1fr 3fr; /* Sidebar gets 1 fraction, Main gets 3 fractions */
+            grid-template-rows: auto 1fr auto;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .header {
+            grid-area: header; /* Assign header section in Grid */
+            background-color: #004d99;
+            color: white;
+            padding: 10px;
+        }
+
+        .sidebar {
+            grid-area: sidebar; /* Assign sidebar section in Grid */
+            background-color: #f4f4f4;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+
+        .main {
+            grid-area: main; /* Assign main content section in Grid */
+            display: flex; /* Use Flexbox inside the Grid area for organizing content */
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .footer {
+            grid-area: footer; /* Assign footer section in Grid */
+            background-color: #222;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+
+        /* Navigation Bar */
+        .nav {
+            display: flex; /* Flexbox for aligning content in the header */
+            justify-content: space-between; /* Spread items evenly between left and right */
+            align-items: center; /* Center items vertically */
+        }
+
+        .nav .site-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex; /* Flexbox for horizontal alignment of navigation links */
+            gap: 20px; /* Even spacing between links */
+            list-style: none; /* Remove default list styling */
+        }
+
+        .nav-links li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Main Content Sections */
+        .vertical-section {
+            display: flex; /* Flexbox for vertical card stacking */
+            flex-direction: column; /* Stack cards vertically */
+            gap: 20px;
+        }
+
+        .horizontal-section {
+            display: flex; /* Flexbox for horizontal card alignment */
+            flex-direction: row; /* Align cards in a row */
+            gap: 20px;
+        }
+
+        .card {
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            flex: 1; /* Flexbox property for equal spacing */
+        }
+
+        /* Media Queries for Responsiveness */
+
+        /* Mobile screens */
+        @media (max-width: 600px) {
+            .grid-container {
+                grid-template-areas:
+                    "header"
+                    "main"
+                    "sidebar"
+                    "footer"; /* Stack sidebar below main content on mobile */
+                grid-template-columns: 1fr; /* Single-column layout */
+            }
+
+            .nav {
+                flex-direction: column; /* Stack site name and links vertically on mobile */
+                gap: 10px;
+            }
+        }
+
+        /* Tablet screens */
+        @media (min-width: 601px) and (max-width: 1024px) {
+            .grid-container {
+                grid-template-areas:
+                    "header header"
+                    "main sidebar"
+                    "footer footer"; /* Move sidebar next to main content on tablet */
+                grid-template-columns: 2fr 1fr; /* Adjust column proportions for tablet */
+            }
+
+            .main {
+                flex-direction: row; /* Use horizontal alignment for content sections */
+                flex-wrap: wrap; /* Wrap cards if space is limited */
+            }
+
+            .vertical-section, .horizontal-section {
+                flex: 1; /* Equal spacing between sections */
+            }
+        }
+
+        /* Desktop screens */
+        @media (min-width: 1025px) {
+            .grid-container {
+                grid-template-columns: 1fr 3fr; /* Original two-column layout */
+                grid-template-areas:
+                    "header header"
+                    "sidebar main"
+                    "footer footer"; /* Sidebar remains to the left of main content */
+            }
+
+            .nav {
+                flex-direction: row; /* Keep horizontal alignment for desktop */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-container">
+        <header class="header">
+            <nav class="nav">
+                <!-- Flexbox: Align site name and links -->
+                <div class="site-name">MyFlexGrid</div>
+                <ul class="nav-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <aside class="sidebar">
+            <!-- Grid: Sidebar content -->
+            Sidebar Content
+        </aside>
+
+        <main class="main">
+            <section class="vertical-section">
+                <!-- Flexbox: Vertical card stacking -->
+                <div class="card">Vertical Card 1</div>
+                <div class="card">Vertical Card 2</div>
+                <div class="card">Vertical Card 3</div>
+            </section>
+            <section class="horizontal-section">
+                <!-- Flexbox: Horizontal card alignment -->
+                <div class="card">Horizontal Card 1</div>
+                <div class="card">Horizontal Card 2</div>
+                <div class="card">Horizontal Card 3</div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <!-- Grid: Footer content -->
+            &copy; 2025 MyFlexGrid. Built with Flexbox and Grid!
+        </footer>
+    </div>
+</body>
+</html>
